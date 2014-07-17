@@ -31,4 +31,6 @@ if __name__ == "__main__":
     print float(sum(n_steps))/N_EXP
 
     pl.hist(n_steps, bins = hist_bins, alpha=hist_alpha, histtype='stepfilled', color='b')
+    pl.xlabel("Number of steps")
+    pl.ylabel("Frequency")
     pl.show()
