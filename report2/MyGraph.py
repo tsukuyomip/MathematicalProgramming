@@ -30,7 +30,7 @@ class MyGraph(object):
         self.n_nodes = n_nodes
         self.edge = edge
         self.phi = phi
-        self.rng = np.random
+        self.rng = rng
 
 
     def walk(self, start = None, goal = None):
