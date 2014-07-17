@@ -17,9 +17,12 @@ class MyGraph(object):
                 [0, 0, 0, 0, 1, 0, 1],
                 [0, 0, 0, 0, 0, 1, 0]
             ]
+
+        # phiの選択
         if phi is None:
             phi = self.phi_1
             #phi = self.phi_2
+            #phi = self.phi_3
         if rng is None:
             print >> sys.stderr, "warning(MyGraph.__init__()): rng is None. set rng to np.random"
             rng = np.random
@@ -28,6 +31,7 @@ class MyGraph(object):
         self.edge = edge
         self.phi = phi
         self.rng = np.random
+
 
     def walk(self, start = None, goal = None):
         if start is None:
@@ -46,37 +50,45 @@ class MyGraph(object):
         # 遷移確率の計算
         sum_phi = 0.0
         p = np.array([])
-        #print "start is", start
+        index = 0
         for i in self.edge[start]:
             if i == 0:
                 p = np.append(p, 0)
             else:
-                deg = self.phi(i)
+                deg = self.phi(index = index)
                 p = np.append(p, deg)
                 sum_phi += deg
+            index += 1
         p = p/sum_phi
 
         next_node = self.select_with_prob(p, rng = self.rng)
-        if next_node == goal:
-            return 1
+        return next_node
 
-        return self.walk(next_node, goal) + 1
 
     def phi_1(self, index = None):
         """phi(x) = deg(x). nodeのdegを返す．"""
         if index is None:
             print >> sys.stderr, "error(MyGraph.phi_1()): index is None."
             return None
+        return sum(self.edge[index])
+        #retval = 0
+        #for i in (self.edge[index]):
+        #    retval += i
+        #return retval
 
-        retval = 0
-        for i in (self.edge[index]):
-            retval += i
-        return retval
 
     def phi_2(self, index = None):
         """phi(x) = 1. 常に1を返す．"""
         return 1
 
+
+    def phi_3(self, index = None):
+        """phi(x) = deg(x). nodeのdegを返す．"""
+        if index is None:
+            print >> sys.stderr, "error(MyGraph.phi_1()): index is None."
+            return None
+
+        return 1.0/self.phi_1(index = index)
 
 
     def select_with_prob(self, p = None, rng = None):
