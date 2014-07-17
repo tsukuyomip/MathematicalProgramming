@@ -20,9 +20,9 @@ class MyGraph(object):
 
         # phiの選択
         if phi is None:
-            phi = self.phi_1
+            #phi = self.phi_1
             #phi = self.phi_2
-            #phi = self.phi_3
+            phi = self.phi_3
         if rng is None:
             print >> sys.stderr, "warning(MyGraph.__init__()): rng is None. set rng to np.random"
             rng = np.random

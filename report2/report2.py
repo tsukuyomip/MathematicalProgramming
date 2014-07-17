@@ -6,9 +6,12 @@ import pylab as pl
 import MyGraph as mg
 
 if __name__ == "__main__":
-    N_EXP = 1000
+    N_EXP = 5000
     start = 3
     goal = 6
+
+    hist_bins = 100
+    hist_alpha = 0.3
     rng = np.random.RandomState(22294322)
 
     g = mg.MyGraph(rng = rng)
@@ -27,5 +30,5 @@ if __name__ == "__main__":
 
     print float(sum(n_steps))/N_EXP
 
-    pl.hist(n_steps, bins = 100, alpha=0.3, histtype='stepfilled', color='b')
+    pl.hist(n_steps, bins = hist_bins, alpha=hist_alpha, histtype='stepfilled', color='b')
     pl.show()
